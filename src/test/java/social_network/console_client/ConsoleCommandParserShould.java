@@ -32,10 +32,18 @@ public class ConsoleCommandParserShould {
     }
 
     @Test
-    void split_follow_command_with_username_command_and_post() throws UnsupportedCommandException {
+    void split_follow_command_with_username_command_and_followee() throws UnsupportedCommandException {
         ConsoleCommand consoleCommand = parser.parse("Charlie follows Alice");
         assertEquals("Charlie", consoleCommand.username);
         assertEquals("follows", consoleCommand.command);
         assertEquals("Alice", consoleCommand.argument);
+    }
+
+    @Test
+    void split_wall_command_with_username_and_command() throws UnsupportedCommandException {
+        ConsoleCommand consoleCommand = parser.parse("Charlie wall");
+        assertEquals("Charlie", consoleCommand.username);
+        assertEquals("wall", consoleCommand.command);
+        assertEquals("", consoleCommand.argument);
     }
 }
