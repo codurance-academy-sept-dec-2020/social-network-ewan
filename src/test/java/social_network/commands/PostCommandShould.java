@@ -31,6 +31,6 @@ public class PostCommandShould {
         command.execute();
 
         verify(userService).getOrCreateUser(username);
-        verify(postService).create(USER.id, post);
+        verify(postService).create(post, USER.id);
     }
 }

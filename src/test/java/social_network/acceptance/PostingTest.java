@@ -11,7 +11,9 @@ import social_network.console_client.ConsoleClient;
 import social_network.console_client.ConsoleCommandFactory;
 import social_network.console_client.ConsoleCommandParser;
 import social_network.exceptions.UnsupportedCommandException;
+import social_network.repositories.InMemoryPostRepository;
 import social_network.repositories.InMemoryUserRepository;
+import social_network.repositories.PostRepository;
 import social_network.repositories.UserRepository;
 import social_network.services.PostService;
 import social_network.services.UserService;
@@ -31,7 +33,8 @@ public class PostingTest {
     @BeforeEach
     void setUp() {
         ConsoleCommandParser commandParser = new ConsoleCommandParser();
-        PostService postService = new PostService();
+        PostRepository postRepository = new InMemoryPostRepository();
+        PostService postService = new PostService(postRepository);
         UserRepository userRepository = new InMemoryUserRepository();
         UserService userService = new UserService(userRepository);
         ConsoleCommandFactory commandFactory = new ConsoleCommandFactory(postService, userService);

@@ -19,6 +19,6 @@ public class PostCommand implements Command {
 
     public void execute() {
         User user = userService.getOrCreateUser(username);
-        postService.create(user.id, post);
+        postService.create(post, user.id);
     }
 }
