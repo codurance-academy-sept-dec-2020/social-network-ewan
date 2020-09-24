@@ -13,16 +13,16 @@ import social_network.console_client.ConsoleCommandParser;
 import social_network.exceptions.UnsupportedCommandException;
 import social_network.output.Printer;
 import social_network.output.TimeDeltaFormatter;
-import social_network.repositories.InMemoryPostRepository;
-import social_network.repositories.InMemoryUserRepository;
-import social_network.repositories.PostRepository;
-import social_network.repositories.UserRepository;
+import social_network.repositories.*;
 import social_network.services.PostService;
 import social_network.services.UserService;
 
 import java.io.PrintStream;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class PostingTest {
@@ -30,12 +30,15 @@ public class PostingTest {
     @Mock
     private PrintStream output;
 
+    @Mock
+    private DateTimeGenerator dateTimeGenerator;
+
     ConsoleClient client;
 
     @BeforeEach
     void setUp() {
         ConsoleCommandParser commandParser = new ConsoleCommandParser();
-        PostRepository postRepository = new InMemoryPostRepository();
+        PostRepository postRepository = new InMemoryPostRepository(dateTimeGenerator);
         PostService postService = new PostService(postRepository);
         UserRepository userRepository = new InMemoryUserRepository();
         UserService userService = new UserService(userRepository);
@@ -48,6 +51,11 @@ public class PostingTest {
 
     @Test
     void user_can_post_to_wall_and_read() throws UnsupportedCommandException {
+        when(dateTimeGenerator.timeNow())
+                .thenReturn(LocalDateTime.now().minus(5, ChronoUnit.MINUTES))
+                .thenReturn(LocalDateTime.now().minus(2, ChronoUnit.MINUTES))
+                .thenReturn(LocalDateTime.now().minus(1, ChronoUnit.MINUTES));
+
         client.execute("Alice -> I love the weather today");
         client.execute("Bob -> Damn! We lost!");
         client.execute("Bob -> Good game though.");
