@@ -14,17 +14,18 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class ConsoleClientShould {
-    @Mock
-    private social_network.console_client.ConsoleCommandParser commandParser;
 
     @Mock
-    private social_network.console_client.ConsoleCommand commandFactory;
+    private ConsoleCommandParser commandParser;
+
+    @Mock
+    private ConsoleCommandFactory commandFactory;
 
     @Mock
     private SocialNetwork socialNetwork;
 
     @InjectMocks
-    private social_network.console_client.ConsoleClient client;
+    private ConsoleClient client;
 
     @Test
     void parse_command_input_get_command_and_send_to_() {

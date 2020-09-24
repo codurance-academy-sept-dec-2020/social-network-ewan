@@ -1,11 +1,14 @@
 package social_network;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import social_network.console_client.ConsoleClient;
+import social_network.console_client.ConsoleCommandFactory;
+import social_network.console_client.ConsoleCommandParser;
 
 import java.io.PrintStream;
 
@@ -17,9 +20,18 @@ public class PostingTest {
     @Mock
     private PrintStream output;
 
+    ConsoleClient client;
+
+    @BeforeEach
+    void setUp() {
+        ConsoleCommandParser commandParser = new ConsoleCommandParser();
+        ConsoleCommandFactory commandFactory = new ConsoleCommandFactory();
+        SocialNetwork socialNetwork = new SocialNetwork();
+        client = new ConsoleClient(commandParser, commandFactory, socialNetwork);
+    }
+
     @Test
     void user_can_post_to_wall_and_read() {
-        ConsoleClient client = new ConsoleClient();
         client.execute("Alice -> I love the weather today");
         client.execute("Bob -> Damn! We lost!");
         client.execute("Bob -> Good game though.");
