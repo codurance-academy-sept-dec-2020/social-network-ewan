@@ -4,12 +4,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import social_network.console_client.Printer;
 import social_network.entities.Post;
 import social_network.entities.User;
+import social_network.output.Printer;
 import social_network.services.PostService;
 import social_network.services.UserService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.mockito.Mockito.verify;
@@ -32,8 +33,8 @@ public class ReadCommandShould {
     void get_user_get_their_posts_and_send_them_printer() {
         ReadCommand command = new ReadCommand(postService, userService, printer, USER.username);
         List<Post> posts = List.of(
-                new Post("I love the weather today", USER.id),
-                new Post("Hello world", USER.id)
+                new Post("I love the weather today", USER.id, LocalDateTime.now()),
+                new Post("Hello world", USER.id, LocalDateTime.now())
         );
         when(userService.getOrCreateUser(USER.username)).thenReturn(USER);
         when(postService.getUserPosts(USER.id)).thenReturn(posts);

@@ -1,8 +1,8 @@
 package social_network.commands;
 
-import social_network.console_client.Printer;
 import social_network.entities.Post;
 import social_network.entities.User;
+import social_network.output.Printer;
 import social_network.services.PostService;
 import social_network.services.UserService;
 

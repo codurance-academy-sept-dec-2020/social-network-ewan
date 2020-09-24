@@ -4,6 +4,7 @@ import social_network.commands.Command;
 import social_network.commands.PostCommand;
 import social_network.commands.ReadCommand;
 import social_network.exceptions.UnsupportedCommandException;
+import social_network.output.Printer;
 import social_network.services.PostService;
 import social_network.services.UserService;
 

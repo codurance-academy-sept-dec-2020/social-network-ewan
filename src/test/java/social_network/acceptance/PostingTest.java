@@ -10,8 +10,9 @@ import social_network.SocialNetwork;
 import social_network.console_client.ConsoleClient;
 import social_network.console_client.ConsoleCommandFactory;
 import social_network.console_client.ConsoleCommandParser;
-import social_network.console_client.Printer;
 import social_network.exceptions.UnsupportedCommandException;
+import social_network.output.Printer;
+import social_network.output.TimeDeltaFormatter;
 import social_network.repositories.InMemoryPostRepository;
 import social_network.repositories.InMemoryUserRepository;
 import social_network.repositories.PostRepository;
@@ -38,7 +39,8 @@ public class PostingTest {
         PostService postService = new PostService(postRepository);
         UserRepository userRepository = new InMemoryUserRepository();
         UserService userService = new UserService(userRepository);
-        Printer printer = new Printer();
+        TimeDeltaFormatter timeDeltaFormatter = new TimeDeltaFormatter();
+        Printer printer = new Printer(output, timeDeltaFormatter);
         ConsoleCommandFactory commandFactory = new ConsoleCommandFactory(postService, userService, printer);
         SocialNetwork socialNetwork = new SocialNetwork();
         client = new ConsoleClient(commandParser, commandFactory, socialNetwork);
@@ -54,7 +56,7 @@ public class PostingTest {
         client.execute("Alice");
         client.execute("Bob");
 
-        InOrder inOrder = inOrder();
+        InOrder inOrder = inOrder(output);
         inOrder.verify(output).println("I love the weather today (5 minutes ago)");
         inOrder.verify(output).println("Good game though. (1 minute ago)");
         inOrder.verify(output).println("Damn! We lost! (2 minutes ago)");
