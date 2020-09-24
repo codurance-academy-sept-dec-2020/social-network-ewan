@@ -4,6 +4,7 @@ import social_network.entities.Post;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class InMemoryPostRepository implements PostRepository {
     private List<Post> posts;
@@ -17,6 +18,6 @@ public class InMemoryPostRepository implements PostRepository {
     }
 
     public List<Post> getUserPosts(long userID) {
-        throw new UnsupportedOperationException();
+        return posts.stream().filter(p -> p.userID == userID).collect(Collectors.toList());
     }
 }
