@@ -10,10 +10,12 @@ import social_network.services.UserService;
 public class ConsoleCommandFactory {
     private final PostService postService;
     private final UserService userService;
+    private final Printer printer;
 
-    public ConsoleCommandFactory(PostService postService, UserService userService) {
+    public ConsoleCommandFactory(PostService postService, UserService userService, Printer printer) {
         this.postService = postService;
         this.userService = userService;
+        this.printer = printer;
     }
 
     public Command create(ConsoleCommand consoleCommand) throws UnsupportedCommandException {
@@ -21,7 +23,7 @@ public class ConsoleCommandFactory {
             return new PostCommand(postService, userService, consoleCommand.username, consoleCommand.argument);
         }
         if (consoleCommand.command.equals("")) {
-            return new ReadCommand();
+            return new ReadCommand(postService, userService, printer, consoleCommand.username);
         }
 
         throw new UnsupportedCommandException();

@@ -15,4 +15,8 @@ public class InMemoryPostRepository implements PostRepository {
     public void create(String post, long userID) {
         posts.add(new Post(post, userID));
     }
+
+    public List<Post> getUserPosts(long userID) {
+        throw new UnsupportedOperationException();
+    }
 }

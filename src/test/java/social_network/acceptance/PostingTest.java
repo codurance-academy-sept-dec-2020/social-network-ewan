@@ -10,6 +10,7 @@ import social_network.SocialNetwork;
 import social_network.console_client.ConsoleClient;
 import social_network.console_client.ConsoleCommandFactory;
 import social_network.console_client.ConsoleCommandParser;
+import social_network.console_client.Printer;
 import social_network.exceptions.UnsupportedCommandException;
 import social_network.repositories.InMemoryPostRepository;
 import social_network.repositories.InMemoryUserRepository;
@@ -37,7 +38,8 @@ public class PostingTest {
         PostService postService = new PostService(postRepository);
         UserRepository userRepository = new InMemoryUserRepository();
         UserService userService = new UserService(userRepository);
-        ConsoleCommandFactory commandFactory = new ConsoleCommandFactory(postService, userService);
+        Printer printer = new Printer();
+        ConsoleCommandFactory commandFactory = new ConsoleCommandFactory(postService, userService, printer);
         SocialNetwork socialNetwork = new SocialNetwork();
         client = new ConsoleClient(commandParser, commandFactory, socialNetwork);
     }
