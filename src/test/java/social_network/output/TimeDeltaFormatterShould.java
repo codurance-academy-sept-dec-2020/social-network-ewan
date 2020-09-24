@@ -30,4 +30,11 @@ public class TimeDeltaFormatterShould {
         String delta = timeDeltaFormatter.format(date);
         assertEquals("24 minutes ago", delta);
     }
+
+    @Test
+    void formats_time_difference_of_less_than_a_day_in_hours() {
+        LocalDateTime date = LocalDateTime.now().minus(4, ChronoUnit.HOURS);
+        String delta = timeDeltaFormatter.format(date);
+        assertEquals("4 hours ago", delta);
+    }
 }
