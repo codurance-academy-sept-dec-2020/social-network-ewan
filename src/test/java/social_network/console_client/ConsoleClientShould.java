@@ -9,6 +9,8 @@ import social_network.SocialNetwork;
 import social_network.commands.Command;
 import social_network.commands.PostCommand;
 import social_network.exceptions.UnsupportedCommandException;
+import social_network.services.PostService;
+import social_network.services.UserService;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -25,6 +27,12 @@ public class ConsoleClientShould {
     @Mock
     private SocialNetwork socialNetwork;
 
+    @Mock
+    private PostService postService;
+
+    @Mock
+    private UserService userService;
+
     @InjectMocks
     private ConsoleClient client;
 
@@ -34,7 +42,7 @@ public class ConsoleClientShould {
         ConsoleCommand consoleCommand = new ConsoleCommand(
                 "->", "Alice", "I love the weather today"
         );
-        Command command = new PostCommand(consoleCommand.username, consoleCommand.argument);
+        Command command = new PostCommand(postService, userService, consoleCommand.username, consoleCommand.argument);
         when(commandParser.parse(consoleInput)).thenReturn(consoleCommand);
         when(commandFactory.create(consoleCommand)).thenReturn(command);
         client.execute(consoleInput);

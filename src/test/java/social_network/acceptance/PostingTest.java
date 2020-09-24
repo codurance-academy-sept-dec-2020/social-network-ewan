@@ -11,6 +11,8 @@ import social_network.console_client.ConsoleClient;
 import social_network.console_client.ConsoleCommandFactory;
 import social_network.console_client.ConsoleCommandParser;
 import social_network.exceptions.UnsupportedCommandException;
+import social_network.services.PostService;
+import social_network.services.UserService;
 
 import java.io.PrintStream;
 
@@ -27,7 +29,9 @@ public class PostingTest {
     @BeforeEach
     void setUp() {
         ConsoleCommandParser commandParser = new ConsoleCommandParser();
-        ConsoleCommandFactory commandFactory = new ConsoleCommandFactory();
+        PostService postService = new PostService();
+        UserService userService = new UserService();
+        ConsoleCommandFactory commandFactory = new ConsoleCommandFactory(postService, userService);
         SocialNetwork socialNetwork = new SocialNetwork();
         client = new ConsoleClient(commandParser, commandFactory, socialNetwork);
     }
