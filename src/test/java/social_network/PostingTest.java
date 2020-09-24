@@ -9,6 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import social_network.console_client.ConsoleClient;
 import social_network.console_client.ConsoleCommandFactory;
 import social_network.console_client.ConsoleCommandParser;
+import social_network.exceptions.UnsupportedCommandException;
 
 import java.io.PrintStream;
 
@@ -31,7 +32,7 @@ public class PostingTest {
     }
 
     @Test
-    void user_can_post_to_wall_and_read() {
+    void user_can_post_to_wall_and_read() throws UnsupportedCommandException {
         client.execute("Alice -> I love the weather today");
         client.execute("Bob -> Damn! We lost!");
         client.execute("Bob -> Good game though.");

@@ -8,6 +8,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import social_network.SocialNetwork;
 import social_network.commands.Command;
 import social_network.commands.PostCommand;
+import social_network.exceptions.UnsupportedCommandException;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -28,10 +29,11 @@ public class ConsoleClientShould {
     private ConsoleClient client;
 
     @Test
-    void parse_command_input_get_command_and_send_to_() {
+    void parse_command_input_get_command_and_send_to_() throws UnsupportedCommandException {
         String consoleInput = "Alice -> I love the weather today";
-        String consoleCommandString = "->";
-        social_network.console_client.ConsoleCommand consoleCommand = new social_network.console_client.ConsoleCommand(consoleCommandString);
+        ConsoleCommand consoleCommand = new ConsoleCommand(
+                "->", "Alice", "I love the weather today"
+        );
         Command command = new PostCommand();
         when(commandParser.parse(consoleInput)).thenReturn(consoleCommand);
         when(commandFactory.create(consoleCommand)).thenReturn(command);
