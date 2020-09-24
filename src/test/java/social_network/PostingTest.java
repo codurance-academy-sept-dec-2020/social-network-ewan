@@ -1,11 +1,11 @@
-package acceptance;
+package social_network;
 
-import clients.ConsoleClient;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import social_network.console_client.ConsoleClient;
 
 import java.io.PrintStream;
 
