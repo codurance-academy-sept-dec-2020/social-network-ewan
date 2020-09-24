@@ -60,7 +60,6 @@ public class PostingTest {
         client.execute("Bob -> Damn! We lost!");
         client.execute("Bob -> Good game though.");
 
-
         client.execute("Alice");
         client.execute("Bob");
 
@@ -68,5 +67,32 @@ public class PostingTest {
         inOrder.verify(output).println("I love the weather today (5 minutes ago)");
         inOrder.verify(output).println("Good game though. (1 minute ago)");
         inOrder.verify(output).println("Damn! We lost! (2 minutes ago)");
+    }
+
+    @Test
+    void user_can_follow_then_see_posts_on_their_wall() throws UnsupportedCommandException {
+        when(dateTimeGenerator.timeNow())
+                .thenReturn(LocalDateTime.now().minus(5, ChronoUnit.MINUTES))
+                .thenReturn(LocalDateTime.now().minus(2, ChronoUnit.MINUTES))
+                .thenReturn(LocalDateTime.now().minus(1, ChronoUnit.MINUTES))
+                .thenReturn(LocalDateTime.now().minus(2, ChronoUnit.SECONDS));
+
+        client.execute("Alice -> I love the weather today");
+        client.execute("Bob -> Damn! We lost!");
+        client.execute("Bob -> Good game though.");
+        client.execute("Charlie -> I'm in New York today! Anyone want to have a coffee?");
+        client.execute("Charlie follows Alice");
+        client.execute("Charlie wall");
+        client.execute("Charlie follows Bob");
+        client.execute("Charlie wall");
+
+        InOrder inOrder = inOrder(output);
+        inOrder.verify(output).println("Charlie - I'm in New York today! Anyone want to have a coffee? (2 seconds ago)");
+        inOrder.verify(output).println("Alice - I love the weather today (5 minutes ago)");
+
+        inOrder.verify(output).println("Charlie - I'm in New York today! Anyone wants to have a coffee? (2 seconds ago)");
+        inOrder.verify(output).println("Bob - Good game though. (1 minute ago)");
+        inOrder.verify(output).println("Bob - Damn! We lost! (2 minutes ago)");
+        inOrder.verify(output).println("Alice - I love the weather today (5 minutes ago)");
     }
 }

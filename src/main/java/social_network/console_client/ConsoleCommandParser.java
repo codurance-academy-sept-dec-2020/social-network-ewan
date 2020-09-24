@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class ConsoleCommandParser {
 
-    private static final String CONSOLE_COMMAND_REGEX = "^(?<username>[\\w]+)\\s?(?<command>(?:->)?)\\s?(?<argument>[\\s\\S]*)$";
+    private static final String CONSOLE_COMMAND_REGEX = "^(?<username>[\\w]+)\\s?(?<command>(?:->|follows)?)\\s?(?<argument>[\\s\\S]*)$";
 
     public ConsoleCommand parse(String consoleInput) throws UnsupportedCommandException {
         Pattern pattern = Pattern.compile(CONSOLE_COMMAND_REGEX);

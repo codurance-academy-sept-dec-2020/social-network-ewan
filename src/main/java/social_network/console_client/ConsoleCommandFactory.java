@@ -1,6 +1,7 @@
 package social_network.console_client;
 
 import social_network.commands.Command;
+import social_network.commands.FollowCommand;
 import social_network.commands.PostCommand;
 import social_network.commands.ReadCommand;
 import social_network.exceptions.UnsupportedCommandException;
@@ -25,6 +26,9 @@ public class ConsoleCommandFactory {
         }
         if (consoleCommand.command.equals("")) {
             return new ReadCommand(postService, userService, printer, consoleCommand.username);
+        }
+        if (consoleCommand.command.equals("follows")) {
+            return new FollowCommand();
         }
 
         throw new UnsupportedCommandException();
