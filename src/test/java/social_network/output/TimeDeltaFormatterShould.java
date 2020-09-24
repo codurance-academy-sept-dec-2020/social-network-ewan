@@ -37,4 +37,18 @@ public class TimeDeltaFormatterShould {
         String delta = timeDeltaFormatter.format(date);
         assertEquals("4 hours ago", delta);
     }
+
+    @Test
+    void formats_big_time_difference_in_days() {
+        LocalDateTime date = LocalDateTime.now().minus(6, ChronoUnit.DAYS);
+        String delta = timeDeltaFormatter.format(date);
+        assertEquals("6 days ago", delta);
+    }
+
+    @Test
+    void formats_when_just_now() {
+        LocalDateTime date = LocalDateTime.now();
+        String delta = timeDeltaFormatter.format(date);
+        assertEquals("just now", delta);
+    }
 }

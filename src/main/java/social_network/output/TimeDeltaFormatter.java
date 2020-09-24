@@ -7,15 +7,40 @@ public class TimeDeltaFormatter {
 
     private static final int MINUTE = 60;
     private static final long HOUR = MINUTE * 60;
+    private static final long DAY = HOUR * 24;
 
     public String format(LocalDateTime date) {
-        long diff = ChronoUnit.SECONDS.between(date, LocalDateTime.now());
-        if (diff >= HOUR) {
-            return String.format("%s hours ago", diff / HOUR);
+        long diffInSeconds = ChronoUnit.SECONDS.between(date, LocalDateTime.now());
+
+        for (Unit unit : Unit.values()) {
+            if (diffInSeconds >= unit.seconds) {
+                return String.format("%s %s ago", diffInSeconds / unit.seconds, formattedUnitName(diffInSeconds, unit));
+            }
         }
-        if (diff >= MINUTE) {
-            return String.format("%s minutes ago", diff / MINUTE);
+
+        return "just now";
+    }
+
+    private String formattedUnitName(long diffInSeconds, Unit unit) {
+        String unitName = unit.name;
+        if (diffInSeconds / unit.seconds > 1) {
+            unitName += "s";
         }
-        return String.format("%s seconds ago", diff);
+        return unitName;
+    }
+
+    private enum Unit {
+        DAY(60 * 60 * 24, "day"),
+        HOUR(60 * 60, "hour"),
+        MINUTE(60, "minute"),
+        SECOND(1, "second");
+
+        public final int seconds;
+        public final String name;
+
+        Unit(int seconds, String name) {
+            this.seconds = seconds;
+            this.name = name;
+        }
     }
 }
