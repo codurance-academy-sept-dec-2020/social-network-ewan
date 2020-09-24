@@ -7,4 +7,6 @@ public interface UserRepository {
     User findByUsername(String username) throws NoUserException;
 
     User create(String username);
+
+    User findByID(long userID) throws NoUserException;
 }

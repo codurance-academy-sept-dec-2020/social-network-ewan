@@ -39,4 +39,11 @@ public class FollowServiceShould {
         assertEquals(FOLLOWED_USER_ID, follows.get(1));
         verify(followRepository).getFollowsForUser(USER_ID);
     }
+
+    @Test
+    void delete_all_follows_for_user() {
+        service.deleteFollows(USER_ID);
+
+        verify(followRepository).deleteFollows(USER_ID);
+    }
 }

@@ -19,7 +19,7 @@ public class UserService {
         }
     }
 
-    public User getUserByID(Long userID) {
-        throw new UnsupportedOperationException();
+    public User getUserByID(Long userID) throws NoUserException {
+        return userRepository.findByID(userID);
     }
 }

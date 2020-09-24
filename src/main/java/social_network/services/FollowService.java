@@ -22,4 +22,8 @@ public class FollowService {
         follows.addAll(followRepository.getFollowsForUser(userID));
         return follows;
     }
+
+    public void deleteFollows(Long userID) {
+        followRepository.deleteFollows(userID);
+    }
 }

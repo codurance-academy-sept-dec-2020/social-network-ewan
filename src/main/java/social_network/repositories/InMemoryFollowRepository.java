@@ -20,4 +20,8 @@ public class InMemoryFollowRepository implements FollowRepository {
     public List<Long> getFollowsForUser(long userId) {
         return follows.stream().map(follow -> follow.followeeID).collect(Collectors.toList());
     }
+
+    public void deleteFollows(long userId) {
+        follows.removeIf(follow -> follow.userID == userId || follow.followeeID == userId);
+    }
 }

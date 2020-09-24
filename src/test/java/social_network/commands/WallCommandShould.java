@@ -7,6 +7,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import social_network.entities.Post;
 import social_network.entities.User;
 import social_network.entities.Wall;
+import social_network.exceptions.NoUserException;
 import social_network.output.Printer;
 import social_network.services.FollowService;
 import social_network.services.PostService;
@@ -37,7 +38,7 @@ public class WallCommandShould {
     private Printer printer;
 
     @Test
-    void gets_user_id_gets_their_follows_then_posts_of_everyone() {
+    void gets_user_id_gets_their_follows_then_posts_of_everyone() throws NoUserException {
         WallCommand command = new WallCommand(userService, followService, postService, printer, USER.username);
         Post charliePost = new Post("I'm in New York today! Anyone want to have a coffee?", USER.id, LocalDateTime.now());
         Post alicePost = new Post("I love the weather today", FOLLOWED_USER.id, LocalDateTime.now());
