@@ -15,4 +15,8 @@ public class InMemoryFollowRepository implements FollowRepository {
     public void create(long userID, long followeeID) {
         follows.add(new Follow(userID, followeeID));
     }
+
+    public List<Long> getFollowsForUser(long userId) {
+        throw new UnsupportedOperationException();
+    }
 }

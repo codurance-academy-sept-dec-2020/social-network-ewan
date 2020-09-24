@@ -2,10 +2,11 @@ package social_network.services;
 
 import social_network.repositories.FollowRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FollowService {
-    private FollowRepository followRepository;
+    private final FollowRepository followRepository;
 
     public FollowService(FollowRepository followRepository) {
         this.followRepository = followRepository;
@@ -15,7 +16,10 @@ public class FollowService {
         followRepository.create(userID, followeeID);
     }
 
-    public List<Long> getFollows(long id) {
-        throw new UnsupportedOperationException();
+    public List<Long> getFollows(long userID) {
+        ArrayList<Long> follows = new ArrayList<>();
+        follows.add(userID);
+        follows.addAll(followRepository.getFollowsForUser(userID));
+        return follows;
     }
 }
