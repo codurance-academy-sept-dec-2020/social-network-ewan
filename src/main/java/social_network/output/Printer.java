@@ -32,6 +32,7 @@ public class Printer {
     public void printWall(Wall wall) {
         for (Post post : wall.posts) {
             String wallLine = wallFormat(post, wall.users);
+            System.out.println(wallLine);
             output.println(wallLine);
         }
     }

@@ -93,7 +93,7 @@ public class PostingTest {
         inOrder.verify(output).println("Charlie - I'm in New York today! Anyone want to have a coffee? (2 seconds ago)");
         inOrder.verify(output).println("Alice - I love the weather today (5 minutes ago)");
 
-        inOrder.verify(output).println("Charlie - I'm in New York today! Anyone wants to have a coffee? (2 seconds ago)");
+        inOrder.verify(output).println("Charlie - I'm in New York today! Anyone want to have a coffee? (2 seconds ago)");
         inOrder.verify(output).println("Bob - Good game though. (1 minute ago)");
         inOrder.verify(output).println("Bob - Damn! We lost! (2 minutes ago)");
         inOrder.verify(output).println("Alice - I love the weather today (5 minutes ago)");

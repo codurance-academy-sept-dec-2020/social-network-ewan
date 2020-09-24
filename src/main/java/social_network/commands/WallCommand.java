@@ -33,7 +33,7 @@ public class WallCommand implements Command {
     public void execute() {
         User user = userService.getOrCreateUser(username);
         List<Long> follows = followService.getFollows(user.id);
-        List<Post> posts = follows.stream().flatMap(userPostsMap()).collect(Collectors.toList());
+        List<Post> posts = follows.stream().flatMap(userPostsMap()).sorted((p1, p2) -> p2.created_at.compareTo(p1.created_at)).collect(Collectors.toList());
         List<User> users = mapUsers(follows);
         printer.printWall(new Wall(posts, users));
     }
