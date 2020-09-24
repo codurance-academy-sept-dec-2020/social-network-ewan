@@ -10,7 +10,7 @@ import java.util.List;
 public class Printer {
     private static final String POST_FORMAT = "%s (%s)";
     private static final String WALL_FORMAT = "%s - %s (%s)";
-    private PrintStream output;
+    private final PrintStream output;
     private final TimeDeltaFormatter timeDeltaFormatter;
 
     public Printer(PrintStream output, TimeDeltaFormatter timeDeltaFormatter) {
@@ -32,7 +32,6 @@ public class Printer {
     public void printWall(Wall wall) {
         for (Post post : wall.posts) {
             String wallLine = wallFormat(post, wall.users);
-            System.out.println(wallLine);
             output.println(wallLine);
         }
     }
