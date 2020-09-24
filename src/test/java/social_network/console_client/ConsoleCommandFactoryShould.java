@@ -5,10 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import social_network.commands.Command;
-import social_network.commands.FollowCommand;
-import social_network.commands.PostCommand;
-import social_network.commands.ReadCommand;
+import social_network.commands.*;
 import social_network.exceptions.UnsupportedCommandException;
 import social_network.services.PostService;
 import social_network.services.UserService;
@@ -45,5 +42,12 @@ public class ConsoleCommandFactoryShould {
         ConsoleCommand consoleCommand = new ConsoleCommand("follows", "Charlie", "Alice");
         Command command = factory.create(consoleCommand);
         assertEquals(FollowCommand.class, command.getClass());
+    }
+
+    @Test
+    void creates_wall_command() throws UnsupportedCommandException {
+        ConsoleCommand consoleCommand = new ConsoleCommand("wall", "Charlie", "");
+        Command command = factory.create(consoleCommand);
+        assertEquals(WallCommand.class, command.getClass());
     }
 }

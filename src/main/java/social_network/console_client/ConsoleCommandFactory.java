@@ -1,9 +1,6 @@
 package social_network.console_client;
 
-import social_network.commands.Command;
-import social_network.commands.FollowCommand;
-import social_network.commands.PostCommand;
-import social_network.commands.ReadCommand;
+import social_network.commands.*;
 import social_network.exceptions.UnsupportedCommandException;
 import social_network.output.Printer;
 import social_network.services.FollowService;
@@ -32,6 +29,9 @@ public class ConsoleCommandFactory {
         }
         if (consoleCommand.command.equals("follows")) {
             return new FollowCommand(userService, followService, consoleCommand.username, consoleCommand.argument);
+        }
+        if (consoleCommand.command.equals("wall")) {
+            return new WallCommand(userService, followService, postService, printer, consoleCommand.username);
         }
 
         throw new UnsupportedCommandException();
