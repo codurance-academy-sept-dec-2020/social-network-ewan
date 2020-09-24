@@ -1,6 +1,7 @@
 package social_network.output;
 
 import social_network.entities.Post;
+import social_network.entities.Wall;
 
 import java.io.PrintStream;
 import java.util.List;
@@ -19,5 +20,9 @@ public class Printer {
             String postLine = String.format("%s (%s)", post.text, timeDeltaFormatter.format(post.created_at));
             output.println(postLine);
         }
+    }
+
+    public void printWall(Wall wall) {
+        throw new UnsupportedOperationException();
     }
 }

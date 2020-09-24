@@ -5,7 +5,7 @@ import social_network.exceptions.NoUserException;
 import social_network.repositories.UserRepository;
 
 public class UserService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -17,5 +17,9 @@ public class UserService {
         } catch (NoUserException e) {
             return userRepository.create(username);
         }
+    }
+
+    public User getUserByID(Long userID) {
+        throw new UnsupportedOperationException();
     }
 }
