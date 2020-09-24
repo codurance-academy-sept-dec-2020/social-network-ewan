@@ -4,9 +4,10 @@ import social_network.entities.Follow;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class InMemoryFollowRepository implements FollowRepository {
-    private List<Follow> follows;
+    private final List<Follow> follows;
 
     public InMemoryFollowRepository() {
         follows = new ArrayList<>();
@@ -17,6 +18,6 @@ public class InMemoryFollowRepository implements FollowRepository {
     }
 
     public List<Long> getFollowsForUser(long userId) {
-        throw new UnsupportedOperationException();
+        return follows.stream().map(follow -> follow.followeeID).collect(Collectors.toList());
     }
 }
