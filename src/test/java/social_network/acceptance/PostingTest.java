@@ -14,6 +14,7 @@ import social_network.exceptions.UnsupportedCommandException;
 import social_network.output.Printer;
 import social_network.output.TimeDeltaFormatter;
 import social_network.repositories.*;
+import social_network.services.FollowService;
 import social_network.services.PostService;
 import social_network.services.UserService;
 
@@ -44,7 +45,9 @@ public class PostingTest {
         UserService userService = new UserService(userRepository);
         TimeDeltaFormatter timeDeltaFormatter = new TimeDeltaFormatter();
         Printer printer = new Printer(output, timeDeltaFormatter);
-        ConsoleCommandFactory commandFactory = new ConsoleCommandFactory(postService, userService, printer);
+        FollowRepository followRepository = new InMemoryFollowRepository();
+        FollowService followService = new FollowService(followRepository);
+        ConsoleCommandFactory commandFactory = new ConsoleCommandFactory(postService, userService, printer, followService);
         SocialNetwork socialNetwork = new SocialNetwork();
         client = new ConsoleClient(commandParser, commandFactory, socialNetwork);
     }

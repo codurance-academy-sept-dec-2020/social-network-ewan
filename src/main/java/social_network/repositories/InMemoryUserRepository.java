@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public class InMemoryUserRepository implements UserRepository {
     private List<User> users;
+    private int currentID = 1;
 
     public InMemoryUserRepository() {
         users = new ArrayList<>();
@@ -23,8 +24,12 @@ public class InMemoryUserRepository implements UserRepository {
     }
 
     public User create(String username) {
-        User user = new User(users.size() + 1, username);
+        User user = new User(getNextID(), username);
         users.add(user);
         return user;
+    }
+
+    private long getNextID() {
+        return currentID++;
     }
 }
