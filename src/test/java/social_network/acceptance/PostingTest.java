@@ -1,4 +1,4 @@
-package social_network;
+package social_network.acceptance;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import social_network.SocialNetwork;
 import social_network.console_client.ConsoleClient;
 import social_network.console_client.ConsoleCommandFactory;
 import social_network.console_client.ConsoleCommandParser;

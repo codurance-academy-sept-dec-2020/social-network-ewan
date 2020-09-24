@@ -34,7 +34,7 @@ public class ConsoleClientShould {
         ConsoleCommand consoleCommand = new ConsoleCommand(
                 "->", "Alice", "I love the weather today"
         );
-        Command command = new PostCommand();
+        Command command = new PostCommand(consoleCommand.username, consoleCommand.argument);
         when(commandParser.parse(consoleInput)).thenReturn(consoleCommand);
         when(commandFactory.create(consoleCommand)).thenReturn(command);
         client.execute(consoleInput);
